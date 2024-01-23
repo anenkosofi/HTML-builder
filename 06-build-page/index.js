@@ -50,11 +50,13 @@ async function buildPage() {
     console.log('style.css created successfully.');
 
     const copyAssets = async (source, destination) => {
-      const entries = await fs.readdir(source, { withFileTypes: true });
+      const copyFiles = await fs.readdir(destination);
 
-      for (const entry of entries) {
-        await fs.rm(path.join(assetsOutputFolder, entry));
+      for (const file of copyFiles) {
+        await fs.rm(path.join(destination, file));
       }
+
+      const entries = await fs.readdir(source, { withFileTypes: true });
 
       for (const entry of entries) {
         const sourcePath = path.join(source, entry.name);
