@@ -8,13 +8,15 @@ async function copyDir() {
   try {
     await fs.mkdir(destinationFolder, { recursive: true });
 
-    const files = await fs.readdir(sourceFolder);
+    const copyFiles = await fs.readdir(destinationFolder);
 
-    for (const file of files) {
+    for (const file of copyFiles) {
       await fs.rm(path.join(destinationFolder, file));
     }
 
-    for (const file of files) {
+    const sourceFiles = await fs.readdir(sourceFolder);
+
+    for (const file of sourceFiles) {
       const sourceFilePath = path.join(sourceFolder, file);
       const destinationFilePath = path.join(destinationFolder, file);
 
