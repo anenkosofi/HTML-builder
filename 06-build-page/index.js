@@ -53,6 +53,10 @@ async function buildPage() {
       const entries = await fs.readdir(source, { withFileTypes: true });
 
       for (const entry of entries) {
+        await fs.rm(path.join(assetsOutputFolder, entry));
+      }
+
+      for (const entry of entries) {
         const sourcePath = path.join(source, entry.name);
         const destinationPath = path.join(destination, entry.name);
 
